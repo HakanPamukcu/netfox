@@ -17,6 +17,10 @@ private func podPlistVersion() -> String? {
     return path
 }
 
+public protocol DecryptionProtocol {
+    func decrypt(tempString: String, requestBody: String) -> String
+}
+
 // TODO: Carthage support
 let nfxVersion = podPlistVersion() ?? "0"
 
@@ -49,6 +53,7 @@ open class NFX: NSObject {
     fileprivate var ignoredURLs = [String]()
     fileprivate var ignoredURLsRegex = [NSRegularExpression]()
     fileprivate var lastVisitDate: Date = Date()
+    public var decryptionDelegate: DecryptionProtocol?
     
     internal var cacheStoragePolicy = URLCache.StoragePolicy.notAllowed
     

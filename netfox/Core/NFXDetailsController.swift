@@ -93,7 +93,7 @@ class NFXDetailsController: NFXGenericController {
         } else if (object.requestBodyLength > 1024) {
             tempString += Constants.tooLongToShowTitle.rawValue
         } else {
-            tempString += "\(object.getRequestBody())\n"
+            return NFX.sharedInstance().decryptionDelegate?.decrypt(tempString: tempString, requestBody: object.getRequestBody()) ?? (tempString + "\(object.getRequestBody())\n")
         }
         return tempString
     }
